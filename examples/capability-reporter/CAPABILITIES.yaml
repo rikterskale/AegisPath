@@ -1,0 +1,7 @@
+network: none
+filesystem: none
+process: none
+credentials: none
+persistence: none
+required_privileges: []
+notes: "Reference tool family – zero capability surface. Prints notices and capability declaration only."

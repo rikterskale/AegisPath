@@ -15,43 +15,14 @@ The harness verifies, constrains, records, and releases.
 4. **Repeatable, auditable releases** — signed packages, SBOMs, full provenance, and clear authorized-use packaging.
 5. **Ethical & legal boundary** — this system exists solely to support *authorized* security testing, research, and defensive improvement. Users are solely responsible for compliance with all applicable laws and organizational policies.
 
-## High-Level Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     AegisPath Orchestrator                  │
-├──────────────┬──────────────┬──────────────┬────────────────┤
-│  Context     │  Agents      │  Verification│  Release       │
-│  Engine      │  (Design /   │  Suite       │  Pipeline      │
-│  (repo +     │   Implement /│  (static +   │  (package +    │
-│   policies + │   Verify)    │   policy +   │   sign +       │
-│   history)   │              │   sandbox)   │   document)    │
-└──────────────┴──────────────┴──────────────┴────────────────┘
-```
-
-## Project Layout
-
-```
-AegisPath/
-├── docs/                  # Architecture, charter, threat model of the harness
-├── src/aegispath/         # Core harness code
-│   ├── core/              # Context, policy engine, orchestrator
-│   ├── agents/            # Specialized agents
-│   └── verification/      # Static, policy, and sandbox checks
-├── templates/             # Design, threat-model, and coding-standard templates
-├── tests/                 # Harness self-tests
-├── examples/              # Non-operational examples & fixtures only
-└── .github/workflows/     # CI gates
-```
-
 ## Status
 
-**v0.3 – Implement agent live**  
-- Interactive Design + Implement wizards (questions → confirm → go back → add features)  
-- Implement agent produces structured file packages; writes only after explicit confirmation  
-- Shared session state, pluggable LLM backends, charter-enforcing prompts, prompt logging  
-- CLI + browser GUI  
-- Next: stronger verification, decision logging, GUI implement phase
+**v0.5 – Decisions, GUI implement, reference tool, CI gates**  
+- Decision log (accept / reject / write / back) under `.aegispath/decisions/`  
+- Streamlit GUI: Design + Implement + Decisions tabs  
+- Reference tool: `examples/capability-reporter` (zero capability)  
+- CI: pytest + charter + `aegispath verify` on the reference tool  
+- Interactive Design + Implement; hardened verification  
 
 ## Quick Start
 
@@ -70,6 +41,10 @@ aegispath implement demo-recon --design designs/demo-recon.md
 
 # 3. Verify what was written
 aegispath verify generated/demo-recon/
+
+# 4. Reference tool + decisions log
+aegispath verify examples/capability-reporter
+aegispath decisions
 
 # Browser GUI
 pip install -e ".[gui]"

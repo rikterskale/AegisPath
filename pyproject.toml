@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "aegispath"
-version = "0.4.0"
+version = "0.5.0"
 description = "AI harness / security-tool factory for authorized red-team tooling"
 readme = "README.md"
 requires-python = ">=3.11"

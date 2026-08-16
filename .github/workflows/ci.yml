@@ -30,7 +30,7 @@ jobs:
 
       - name: Mypy
         run: mypy src
-        continue-on-error: true  # strict mode may need tuning in early stages
+        continue-on-error: true
 
       - name: Bandit
         run: bandit -r src -ll
@@ -43,3 +43,13 @@ jobs:
         run: |
           test -f docs/development-charter.md
           grep -q "Authorized Use Only" docs/development-charter.md
+
+      - name: Verify reference tool family
+        run: |
+          aegispath verify examples/capability-reporter
+          test -f examples/capability-reporter/CAPABILITIES.yaml
+          grep -q "authorized" examples/capability-reporter/README.md
+
+      - name: Reference tool unit tests
+        run: |
+          PYTHONPATH=examples/capability-reporter pytest -q examples/capability-reporter/tests

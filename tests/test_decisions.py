@@ -2,9 +2,10 @@
 
 from pathlib import Path
 
-from aegispath.core.decisions import DecisionLog, content_hash
 from aegispath.interactive.workflow import DesignWorkflow
 from aegispath.llm.mock import MockLLMBackend
+
+from aegispath.core.decisions import DecisionLog, content_hash
 
 
 def test_content_hash_stable():

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from contextlib import suppress
 from pathlib import Path
 
 from aegispath.core.policy import PolicyEngine, PolicyResult, PolicyViolation
@@ -15,10 +16,8 @@ from aegispath.verification.capabilities import (
 def _collect_text(target: Path) -> str:
     texts: list[str] = []
     if target.is_file():
-        try:
+        with suppress(OSError):
             texts.append(target.read_text(encoding="utf-8", errors="replace"))
-        except OSError:
-            pass
     elif target.is_dir():
         for p in target.rglob("*"):
             if p.is_file() and p.suffix in {".md", ".py", ".txt", ".rst", ".yaml", ".yml"}:

@@ -36,6 +36,4 @@ def get_backend(name: str | None = None, **kwargs) -> LLMBackend:
 
         return OpenAICompatibleBackend(**kwargs)
 
-    raise ValueError(
-        f"Unknown LLM backend {name!r}. Supported: mock, openai_compatible"
-    )
+    raise ValueError(f"Unknown LLM backend {name!r}. Supported: mock, openai_compatible")

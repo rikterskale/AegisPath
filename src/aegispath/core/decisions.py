@@ -3,8 +3,7 @@
 from __future__ import annotations
 
 import hashlib
-import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 from uuid import uuid4
@@ -27,7 +26,7 @@ class DecisionRecord(BaseModel):
     """One human or system decision in a design/implement session."""
 
     id: str = Field(default_factory=lambda: str(uuid4())[:12])
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
     session_id: str = ""
     tool_family: str = ""
     phase: str = ""
@@ -86,7 +85,7 @@ class DecisionLog:
         for line in lines[-limit:]:
             try:
                 records.append(DecisionRecord.model_validate_json(line))
-            except Exception:  # noqa: BLE001
+            except Exception:  # noqa: BLE001, S112
                 continue
         return list(reversed(records))
 

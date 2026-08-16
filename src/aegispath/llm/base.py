@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from datetime import datetime, timezone
-from typing import Any, Literal, Sequence
+from collections.abc import Sequence
+from datetime import UTC, datetime
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -58,15 +59,13 @@ class LLMBackend(ABC):
             LLMMessage(role="system", content=system),
             LLMMessage(role="user", content=user),
         ]
-        return self.complete(
-            messages, temperature=temperature, max_tokens=max_tokens, **kwargs
-        )
+        return self.complete(messages, temperature=temperature, max_tokens=max_tokens, **kwargs)
 
 
 class PromptLogEntry(BaseModel):
     """Structured record of a single LLM interaction for audit."""
 
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
     backend: str
     model: str
     system_prompt_hash: str

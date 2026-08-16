@@ -52,9 +52,7 @@ class Orchestrator:
         return agent.run(context, **kwargs)
 
     def run_verify(self, target_path: Path, **kwargs: Any) -> AgentResult:
-        context = self.context_engine.get_context(
-            tool_family="verification", task="verify"
-        )
+        context = self.context_engine.get_context(tool_family="verification", task="verify")
         agent = self._agents.get("verify")
         if agent is None:
             return AgentResult(

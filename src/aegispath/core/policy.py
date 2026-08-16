@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class CapabilityLevel(str, Enum):
+class CapabilityLevel(StrEnum):
     NONE = "none"
     LIMITED = "limited"
     UNRESTRICTED = "unrestricted"
@@ -64,7 +64,9 @@ class PolicyEngine:
                 PolicyViolation(
                     rule_id="CAP-001",
                     severity="error",
-                    message="Missing capability declaration. Every tool must declare its capabilities.",
+                    message=(
+                        "Missing capability declaration. Every tool must declare its capabilities."
+                    ),
                 )
             )
             return PolicyResult(passed=False, violations=violations)
@@ -114,7 +116,8 @@ class PolicyEngine:
                         severity="error",
                         message=(
                             "Missing authorized-use / dual-use notice. "
-                            "Documentation must clearly state that the tool is for authorized testing only."
+                            "Documentation must clearly state that the tool is for "
+                            "authorized testing only."
                         ),
                     )
                 ],

@@ -56,8 +56,7 @@ class VerifyAgent(BaseAgent):
 
         error_count = len(static_result.issues) + len(policy_result.errors)
         message = (
-            f"Verification {'passed' if overall_passed else 'failed'}"
-            f" ({error_count} issue(s))"
+            f"Verification {'passed' if overall_passed else 'failed'} ({error_count} issue(s))"
         )
 
         return AgentResult(

@@ -29,5 +29,4 @@ class BaseAgent(ABC):
     name: str = "base"
 
     @abstractmethod
-    def run(self, context: ContextBundle, **kwargs: Any) -> AgentResult:
-        ...
+    def run(self, context: ContextBundle, **kwargs: Any) -> AgentResult: ...

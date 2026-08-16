@@ -47,13 +47,12 @@ class ContextEngine:
             relevant_docs=[d for d in (design_template, threat_template, charter) if d],
             policy_summary=(
                 "All work must comply with the AegisPath Development Charter. "
-                "Capability declarations, authorized-use notices, and verification gates are mandatory."
+                "Capability declarations, authorized-use notices, and verification "
+                "gates are mandatory."
             ),
             extra={
                 "root": str(self.root),
-                "templates_available": [
-                    p.name for p in self.templates_dir.glob("*.md")
-                ]
+                "templates_available": [p.name for p in self.templates_dir.glob("*.md")]
                 if self.templates_dir.exists()
                 else [],
             },
